@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "wass"
+version = "0.1.0"
+description = ""
+authors = ["John Moore <john.moore@nationalarchives.gov.uk>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+chromadb = "^0.4.22"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
