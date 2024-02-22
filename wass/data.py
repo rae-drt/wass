@@ -17,7 +17,7 @@ class Data:
         return result
 
 
-    def search_data(self, term: str, n: int, distance: float) -> tuple[int, list[str]]:
+    def search(self, term: str, n: int, distance: float) -> tuple[int, list[str]]:
         results = self.collection.query(
             query_texts=[term],
             n_results=n,
@@ -28,10 +28,10 @@ class Data:
         result = (results_len, uris)
         return result
 
-class Context:
-    pass
-ctx = Context()
-ctx.annotation_limit = 200
-data = Data(ctx)
-result = data.search_data("the effect of long covid", 25, 1.2)
-print(result)
+# class Context:
+#     pass
+# ctx = Context()
+# ctx.annotation_limit = 200
+# data = Data(ctx)
+# result = data.search("the effect of long covid", 25, 1.0)
+# print(result)

@@ -8,6 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 chromadb = "^0.4.22"
+flask = "^3.0.2"
 
 
 [build-system]
