@@ -13,8 +13,10 @@ class Data:
         result = []
         for uri,distance in zip(uris,distances):
             if float(distance) <= threshold:
-                result.append(uri)
-        return result
+                item = {"distance": distance, "uri": uri}
+                result.append(item)
+        unique_result = { each['distance'] : each for each in result }.values()
+        return list(unique_result)
 
 
     def search(self, term: str, n: int, distance: float) -> tuple[int, list[str]]:
@@ -23,9 +25,7 @@ class Data:
             n_results=n,
         )
         #print(results)
-        uris = self.__filter_distance(results, distance)
-        results_len = len(uris)
-        result = (results_len, uris)
+        result = self.__filter_distance(results, distance)
         return result
 
 # class Context:

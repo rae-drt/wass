@@ -18,8 +18,8 @@ def search():
     if n < 1 or n > ctx.annotation_limit: abort(404)
     distance = request.args.get('distance', ctx.cosine_distance, type=float)
     if distance < 0.0 or distance > 2.0: abort(404) 
-    (n,items) = data.search(q, n, distance)
-    return items
+    result = data.search(q, n, distance)
+    return result
 
 if __name__ == '__main__':
     app.run(host=ctx.server_ip, debug=ctx.debug, port=ctx.server_port)
