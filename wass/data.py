@@ -6,9 +6,7 @@ from flask import request
 class Data:
     def __init__(self, ctx: object) -> None:
         self.annotation_limit = ctx.annotation_limit
-        client = chromadb.PersistentClient(
-            path="/home/john/git/annototal/annototal/db.chroma"
-        )
+        client = chromadb.PersistentClient(path=ctx.db)
         self.collection = client.get_collection(name="annotations")
 
     def __filter_distance(self, data, threshold):

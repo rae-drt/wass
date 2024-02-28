@@ -13,4 +13,5 @@ class Context:
     server_port = config_ini.getint("wass", "SERVER_PORT")
     debug = config_ini.getboolean("wass", "DEBUG")
     cors = config_ini.getboolean("wass", "CORS")
+    db = config_ini.get("wass", "DB")
 
