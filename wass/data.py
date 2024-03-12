@@ -1,13 +1,14 @@
 import chromadb
 import requests
 from flask import request
-
+from chromadb.utils import embedding_functions
 
 class Data:
     def __init__(self, ctx: object) -> None:
         self.annotation_limit = ctx.annotation_limit
         client = chromadb.PersistentClient(path=ctx.db)
-        self.collection = client.get_collection(name="annotations")
+        sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="multi-qa-MiniLM-L6-cos-v1")
+        self.collection = client.get_collection(name="annotations", embedding_function=sentence_transformer_ef)
 
     def __filter_distance(self, data, threshold):
         uris = data["ids"][0]

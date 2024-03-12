@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.11"
 chromadb = "^0.4.22"
 flask = "^3.0.2"
+sentence-transformers = "^2.5.1"
 
 
 [build-system]
