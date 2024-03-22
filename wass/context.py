@@ -8,6 +8,7 @@ config_ini.read("config.ini")
 class Context:
     version = config_ini.get("main", "VERSION")
     annotation_limit = config_ini.getint("wass", "ANNOTATION_LIMIT")
+    annotation_server = config_ini.get("wass", "ANNOTATION_SERVER")
     cosine_distance = config_ini.getfloat("wass", "COSINE_DISTANCE")
     server_ip = config_ini.get("wass", "SERVER_IP") 
     server_port = config_ini.getint("wass", "SERVER_PORT")

@@ -6,6 +6,7 @@ from chromadb.utils import embedding_functions
 class Data:
     def __init__(self, ctx: object) -> None:
         self.annotation_limit = ctx.annotation_limit
+        self.annotation_server = ctx.annotation_server
         client = chromadb.PersistentClient(path=ctx.db)
         sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="multi-qa-MiniLM-L6-cos-v1")
         self.collection = client.get_collection(name="annotations", embedding_function=sentence_transformer_ef)
@@ -21,13 +22,22 @@ class Data:
                 result.append(item)
         unique_result = {each["distance"]: each for each in result}.values()
         return list(unique_result)
+    
+    def __modify_endpoint(self, uri):
+        xs = uri["uri"].split('/')
+        container = xs[-2]
+        annotation = xs[-1]
+        endpoint = f"{self.annotation_server}/annotations/{container}/{annotation}"
+        return endpoint
 
     def __annotation_page(self, items):
+        id = self.annotation_server + request.full_path
         annotations = []
         for item in items:
-            anno = requests.get(item["uri"], verify=False)
+            endpoint = self.__modify_endpoint(item)
+            anno = requests.get(endpoint, verify=False)
             annotations.append(anno.json())
-        return {"id": request.url, "type": "AnnotationPage", "items": annotations}
+        return {"id": id, "type": "AnnotationPage", "items": annotations}
 
     def search(self, term: str, n: int, distance: float) -> dict[str, object]:
         results = self.collection.query(
