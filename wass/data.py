@@ -17,8 +17,7 @@ class Data:
         # print(distances)
         result = []
         for uri, distance in zip(uris, distances):
-            cosine_distance = 1 - float(distance)
-            if cosine_distance <= threshold:
+            if float(distance) <= threshold:
                 item = {"distance": distance, "uri": uri}
                 result.append(item)
         unique_result = {each["distance"]: each for each in result}.values()
